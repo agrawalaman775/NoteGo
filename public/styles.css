@@ -9,20 +9,51 @@ html {
 body {
   background: #eee;
   background-image: url("https://www.transparenttextures.com/patterns/cubes.png");
-  padding: 0 16px;
+  padding: 0 0px;
 }
 
 header {
+  /* background-color: #f5ba13;
+  margin: auto 0px;
+  padding: 16px 32px;
+  box-shadow: 0 0 10px 0 rgba(0, 0, 0, 0.3); */
   background-color: #f5ba13;
-  margin: auto -16px;
   padding: 16px 32px;
   box-shadow: 0 0 10px 0 rgba(0, 0, 0, 0.3);
+  /* Use Flexbox to create a horizontal layout */
+  justify-content: space-between; /* Space elements evenly along the main axis */
+  align-items: center; 
+  width: 100%;
 }
 
 header h1 {
   color: #fff;
   font-family: "McLaren", cursive;
   font-weight: 200;
+}
+
+.header-content {
+  justify-content: space-between;
+  display: flex; /* Use Flexbox to create a horizontal layout */
+  align-items: center; /* Center elements along the cross axis */
+}
+
+header button {
+  margin-left: auto;
+  outline: none;
+  border: none;
+  background-color: #40403f;
+  color: #fff;
+  border-radius: 5px;
+  font-weight: bold;
+  font-size: 1rem;
+  padding: 10px 16px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+header button:hover {
+  background-color: #5a5958;
 }
 
 footer {

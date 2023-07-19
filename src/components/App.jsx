@@ -1,44 +1,34 @@
-import React, { useState } from "react";
-import Header from "./Header";
-import Footer from "./Footer";
-import Note from "./Note";
-import CreateArea from "./CreateArea";
+import React, {useEffect} from 'react'
+import {BrowserRouter as Router, Routes, Route, Navigate} from "react-router-dom";
 
-function App() {
-  const [notes, setNotes] = useState([]);
+import Home from "../components/Home/App1"
+import Login from "../components/Login/Signin"
+import Signup from "../components/Signup/Signup"
+import { auth } from '../firebase';
+import ProtectedRoute from './ProtectedRoute';
+import { UserAuthContextProvider } from '../context/UserAuthContext';
 
-  function addNote(newNote) {
-    setNotes(prevNotes => {
-      return [...prevNotes, newNote];
-    });
-  }
 
-  function deleteNote(id) {
-    setNotes(prevNotes => {
-      return prevNotes.filter((noteItem, index) => {
-        return index !== id;
-      });
-    });
-  }
+
+export default function App() {
 
   return (
-    <div>
-      <Header />
-      <CreateArea onAdd={addNote} />
-      {notes.map((noteItem, index) => {
-        return (
-          <Note
-            key={index}
-            id={index}
-            title={noteItem.title}
-            content={noteItem.content}
-            onDelete={deleteNote}
-          />
-        );
-      })}
-      <Footer />
+    <div className='App'>
+    
+        <Router>
+        <UserAuthContextProvider>
+            <Routes>
+                <Route path='/login' element={<Login />} />
+                <Route path='/signup' element={<Signup />} />
+                <Route path='/' element={ 
+                  <ProtectedRoute>
+                   <Home />
+                  </ProtectedRoute>
+                  } 
+                />
+            </Routes>
+        </UserAuthContextProvider>
+        </Router>
     </div>
-  );
+  )
 }
-
-export default App;

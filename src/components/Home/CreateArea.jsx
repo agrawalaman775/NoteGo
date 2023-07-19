@@ -1,10 +1,18 @@
-import React, { useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import AddIcon from "@material-ui/icons/Add";
 import Fab from "@material-ui/core/Fab";
 import Zoom from "@material-ui/core/Zoom";
+import { collection, addDoc } from "firebase/firestore";
+import { db } from "../../firebase";
+import { useUserAuth } from "../../context/UserAuthContext";
+
+
+
 
 function CreateArea(props) {
+  const { userUID }=useUserAuth();
   const [isExpanded, setExpanded] = useState(false);
+  const titleInputRef = useRef(null);
 
   const [note, setNote] = useState({
     title: "",
@@ -35,11 +43,18 @@ function CreateArea(props) {
     setExpanded(true);
   }
 
+  useEffect(() => {
+    if (isExpanded && titleInputRef.current) {
+      titleInputRef.current.focus();
+    }
+  }, [isExpanded]);
+
   return (
     <div>
       <form className="create-note">
         {isExpanded && (
           <input
+            ref={titleInputRef}
             name="title"
             onChange={handleChange}
             value={note.title}
